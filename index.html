@@ -3,27 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แบบฟอร์มขออนุญาตออกนอกสถานที่</title>
     <link rel="icon" href="https://www.huana-nbp.go.th/index/add_file/qOv0r0dTue83729.png" type="image/png">
+    <title>แบบฟอร์มขออนุญาตออกนอกสถานที่</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
     <style> 
         /* CSS สำหรับจัดรูปแบบฟอร์ม */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f4f4f4;
+            background: url("https://www.i-pic.info/i/BbiN536436.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
             margin: 0;
             padding: 20px;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0.5), rgba(255,255,255,0)); /* พื้นหลังไล่สีรัศมี */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* เงาฟอง */
+            animation: float 8s linear infinite; 
+            opacity: 0; 
+            }
+
+        /* สร้างฟองหลากหลายขนาดและความเร็ว */
+        .bubble:nth-child(1n) {
+            width: 10px;
+            height: 10px;
+            animation-delay: 1s; /* หน่วงเวลาเริ่ม animation */
+            animation-duration: 10s;
+            }
+
+        .bubble:nth-child(2n) {
+            width: 20px;
+            height: 20px;
+            animation-delay: 3s;
+            animation-duration: 12s;
+            }
+
+        .bubble:nth-child(3n) {
+            width: 15px;
+            height: 15px;
+            animation-delay: 5s;
+            animation-duration: 15s;
+            }
+
+        .bubble:nth-child(4n) {
+            width: 25px;
+            height: 25px;
+            animation-delay: 2s;
+            animation-duration: 9s;
+            }
+
+            /* ปรับ animation ให้ลอยขึ้นและค่อยๆ ปรากฏ */
+            @keyframes float {
+            0% {
+                transform: translateY(100vh); /* เริ่มต้นที่ด้านล่างสุดของหน้าจอ */
+            }
+            20% {
+                opacity: 1; /* ปรากฏขึ้นเมื่อลอยขึ้นมา 20% */
+            }
+            100% {
+                transform: translateY(-10vh); /* ลอยขึ้นไปเหนือหน้าจอเล็กน้อย */
+                opacity: 0; /* จางหายไปเมื่อลอยขึ้นสุด */
+            }
+        }
+            
+        .header { 
+            width: 100%; /* ปรับความกว้างเป็น 100% */
+            background: linear-gradient(to bottom, rgba(204, 224, 255, 0), rgba(204, 224, 255, 0)); 
+            padding: 5px;
+            display: flex;
+            justify-content: center; 
+            box-shadow: 0 2px 5px rgba(204, 224, 255, 0);
+            }
+
+        .logo {
+        max-width: 120px; 
+        height: auto;
         }
 
         .form-container {
             max-width: 600px;
             margin: auto;
-            padding: 30px;
-            background-color: #ffffff;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border: 1px solid #ddd;
-        }
+        } 
 
         h2 {
             text-align: center;
@@ -33,14 +103,14 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: #555;
+            color: #020202;
         }
 
         input[type="text"],
@@ -141,10 +211,22 @@
             50% { opacity: 0.5; }
             100% { opacity: 1; }
         }
+
+        legend {
+            font-weight: bold; /* ทำให้ตัวหนังสือหนา */
+            text-align: center; /* จัดตำแหน่งตัวหนังสือให้อยู่ตรงกลาง */
+            width: 100%; /* ทำให้ <legend> กินพื้นที่ 100% ของช่อง */
+            display: inline-block; /* ทำให้การจัดกลางมีผล */
+        }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-
+    
     <div id="loadingOverlay"> 
         <div class="loadingContent">
           <div class="loadingSpinner"></div>
@@ -152,8 +234,23 @@
         </div>
     </div>
 
-    <h2>แบบฟอร์มขออนุญาตออกนอกสถานที่</h2>  
+    <!-- สร้างฟอง 10 ฟอง -->
+    <div class="bubble"></div>
+        <div class="bubble"></div>
+            <div class="bubble"></div>
+                <div class="bubble"></div>
+                    <div class="bubble"></div>
+                    <div class="bubble"></div>
+                <div class="bubble"></div>
+            <div class="bubble"></div>
+        <div class="bubble"></div>
+    <div class="bubble"></div> 
+
     <div class="form-container">
+        <div class="header"> 
+            <img class="logo" src="https://www.huana-nbp.go.th/index/add_file/qOv0r0dTue83729.png" alt="โลโก้"> 
+        </div>   
+        <h2>แบบฟอร์มขออนุญาตออกนอกสถานที่</h2>  
         <form id="permissionForm">
             <fieldset>
                 <legend>ข้อมูลการขออนุญาต</legend>
@@ -168,13 +265,11 @@
                     <label>วันที่</label>
                     <input type="date" name="date" required>
                 </div>
-            </fieldset>
 
-            <fieldset>
                 <legend>ข้อมูลส่วนตัว</legend>
                 <div class="form-group">
-                    <label>ชื่อ</label>
-                    <input type="text" name="name" required>
+                  <label for="name">ชื่อ - สกุล:</label>
+                  <input type="text" id="name" name="name" required> <br><br>
                 </div>
                 <div class="form-group">
                     <label>ตำแหน่ง</label>
@@ -190,9 +285,7 @@
                         <option value="กองคลัง">กองคลัง</option>
                     </select>
                 </div> 
-            </fieldset>
 
-            <fieldset>
                 <legend>รายละเอียดการเดินทาง</legend>
                 <div class="form-group">
                     <label>จุดหมายปลายทาง</label>
@@ -218,9 +311,7 @@
                         <label><input type="radio" name="vehicle" value="อื่น ๆ" required> อื่น ๆ</label>
                     </div>
                 </div>
-            </fieldset>
 
-            <fieldset>
                 <legend>ข้อมูลติดต่อ</legend>
                 <div class="form-group">
                     <label>หมายเลขโทรศัพท์</label>
@@ -237,11 +328,39 @@
             </div>
         </form>
     </div>
+    <div id="message"></div>
 
     <script>
+        var scripturl = 'https://script.google.com/macros/s/AKfycbyelZDRLXkhNqPuz_4fPxXAkFa8UDD3hgAOzCZpoOiLFQzDPwJ7CF1_CDBlXjAyWGdKHw/exec'; // เปลี่ยนเป็น URL ของคุณ!
+        var owner = 'BY:Songphon_got';
+        var message = document.getElementById('message'); // ประกาศตัวแปร message
+    
+        $(document).ready(function () {
+            initApp();
+        });
+    
+        function initApp() {
+            message.innerText = owner;
+            message.className = 'alert msgBg';
+        }
+    
+        // ฟังก์ชันแปลงวันที่เป็นรูปแบบไทย
+        function formatDateToThai(dateInput) {
+            const date = new Date(dateInput);
+            const months = [
+                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
+                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+            ];
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const year = date.getFullYear() + 543; // แปลงเป็นปี พ.ศ.
+            return `${day} ${month} ${year}`;
+        }
+    
+        // จัดการการส่งฟอร์ม
         document.getElementById('permissionForm').addEventListener('submit', function(event) {
             event.preventDefault();
-
+    
             // สร้าง FormData จากฟอร์ม
             const formData = new FormData(this);
             
@@ -250,7 +369,7 @@
                 name: formData.get('name'),
                 position: formData.get('position'),
                 department: formData.get('department'), 
-                date: formData.get('date'),
+                date: formatDateToThai(formData.get('date')), // แปลงวันที่เป็นแบบไทย
                 destination: formData.get('destination'),
                 purpose: formData.get('purpose'),
                 startTime: formData.get('startTime'),
@@ -258,14 +377,17 @@
                 type: formData.get('type'),
                 vehicle: formData.get('vehicle'),
                 contact: formData.get('contact'),
-                signature: formData.get('signature')
+                signature: formData.get('signature') // เพิ่มลายเซ็นลงไปในข้อมูล
             };
 
+            // Debug: แสดงข้อมูลที่เตรียมจะส่งไปในคอนโซล
+            console.log("Data being sent to Google Apps Script:", data);
+    
             // แสดง Loading Animation
             document.getElementById('loadingOverlay').style.display = 'flex';
-
+    
             // ส่งข้อมูลไปยัง Google Apps Script
-            fetch('https://script.google.com/macros/s/AKfycbyXROiqoikW-DizavjcJ-f00obJ9urtltA0dqYruS7hi8PZJz_ficQTXBjkG-JTQHcQsQ/exec', { // แทนที่ด้วย URL ของ Google Apps Script ของคุณ
+            fetch(scripturl, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: JSON.stringify(data),
@@ -276,22 +398,28 @@
             .then(result => {
                 // ซ่อน Loading Animation
                 document.getElementById('loadingOverlay').style.display = 'none';
-
-                alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! กรุณาตรวจสอบข้อมูลใน กลุ่มแจ้งเตือน');
-                window.location.href = 'https://liff.line.me/2006445603-aO8PqngE'; // แทนที่ด้วย LIFF URL ของคุณ
-
+    
+                // แสดงข้อความแจ้งเตือนว่าส่งข้อมูลสำเร็จ
+                alert('ส่งแบบฟอร์มเรียบร้อยแล้ว! กรุณาตรวจสอบข้อมูลในกลุ่มแจ้งเตือน');
+                
                 // Reset Form 
                 document.getElementById('permissionForm').reset(); 
             })
             .catch(error => {
                 // ซ่อน Loading Animation ในกรณี error
                 document.getElementById('loadingOverlay').style.display = 'none';
-
+    
                 alert('มีข้อผิดพลาดในการส่งแบบฟอร์ม: ' + error.message);
                 console.error('Error details:', error);
             });
         });
+    
+        // สุ่มตำแหน่งเริ่มต้นของฟองจากด้านซ้ายของหน้าจอ
+        const bubbles = document.querySelectorAll('.bubble');
+        bubbles.forEach(bubble => {
+            bubble.style.left = `${Math.random() * 100}%`; 
+        });
     </script>
-
+    
 </body>
 </html>
