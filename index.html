@@ -219,21 +219,23 @@
             display: inline-block; /* ทำให้การจัดกลางมีผล */
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
-<body>
-    
+<body>  
     <div id="loadingOverlay"> 
         <div class="loadingContent">
           <div class="loadingSpinner"></div>
           <div class="loadingText">กรุณารอซักครู่...</div>
         </div>
     </div>
-
     <!-- สร้างฟอง 10 ฟอง -->
     <div class="bubble"></div>
         <div class="bubble"></div>
@@ -296,12 +298,12 @@
                     <input type="text" name="purpose" required>
                 </div>
                 <div class="form-group">
-                    <label>ตั้งแต่เวลา</label>
-                    <input type="text" name="startTime" required>
+                  <label>ตั้งแต่เวลา</label>
+                  <input type="text" id="startTimeInput" name="startTime" required> 
                 </div>
                 <div class="form-group">
-                    <label>ถึงเวลา</label>
-                    <input type="text" name="endTime" required>
+                  <label>ถึงเวลา</label>
+                  <input type="text" id="endTimeInput" name="endTime" required> 
                 </div>
                 <div class="form-group">
                     <label>ยานพาหนะ</label>
@@ -331,12 +333,29 @@
     <div id="message"></div>
 
     <script>
-        var scripturl = 'https://script.google.com/macros/s/AKfycbyelZDRLXkhNqPuz_4fPxXAkFa8UDD3hgAOzCZpoOiLFQzDPwJ7CF1_CDBlXjAyWGdKHw/exec'; // เปลี่ยนเป็น URL ของคุณ!
+  
+        //var scripturl = 'https://script.google.com/macros/s/AKfycbxSmaUXCeF95tPglBZ7ruT11ScSE7j1iRi8JfeqD7YANpVI9KUsWkvTkBwaSExW3mgh1w/exec';
+        var scripturl = 'https://script.google.com/macros/s/AKfycbwWDul3bOBRcvzkux0_V5o2uWuwdudV4JQZPjF9F5p0a53gX4Q_NTBoL5FiIB_Z0r_G9Q/exec'
+
         var owner = 'BY:Songphon_got';
         var message = document.getElementById('message'); // ประกาศตัวแปร message
     
         $(document).ready(function () {
             initApp();
+            
+            flatpickr("#startTimeInput", {
+                enableTime: true,
+                noCalendar: true,
+                time_24hr: true,
+                allowInput: true
+            });
+
+            flatpickr("#endTimeInput", {
+                enableTime: true,
+                noCalendar: true,
+                time_24hr: true,
+                allowInput: true
+            });  
         });
     
         function initApp() {
@@ -419,7 +438,6 @@
         bubbles.forEach(bubble => {
             bubble.style.left = `${Math.random() * 100}%`; 
         });
-    </script>
-    
+    </script>   
 </body>
 </html>
